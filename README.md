@@ -3,6 +3,8 @@
 Veebipõhine Python/Flask versioon algsest Android rakendusest [Tujupäevik](https://github.com/markorillo/mobiilirakendusteare),
 mille autorid on Caupo Helvik, Marko Rillo, Peeter Roop, Priit Laupa ja Tatjana Kuznetsova.
 
+Rakendus on üleval ja töötab aadressil **[https://tujud.runmyapi.com/](https://tujud.runmyapi.com/)** — proovi kohe järele!
+
 Rakendus lubab kasutajal iga päev salvestada oma tuju, tuju põhjuse, tempo ja energiataseme
 ning näha nende kohta lihtsat statistikat.
 
