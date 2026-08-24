@@ -6,6 +6,10 @@ mille autorid on Caupo Helvik, Marko Rillo, Peeter Roop, Priit Laupa ja Tatjana 
 Rakendus lubab kasutajal iga päev salvestada oma tuju, tuju põhjuse, tempo ja energiataseme
 ning näha nende kohta lihtsat statistikat.
 
+## Rakendus veebis
+
+Rakendus jookseb aadressil **[https://tujud.runmyapi.com/](https://tujud.runmyapi.com/)**.
+
 ## Vaated
 
 1. Avaleht

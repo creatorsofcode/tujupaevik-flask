@@ -126,9 +126,36 @@ def mood_statistics():
     return render_template("mood_stats.html", days=_day_averages(), labels=MOOD_LABELS)
 
 
+def _day_tempo_fuel():
+    data = load_data()
+    days = []
+    for day, values in data.items():
+        tempos = [float(t) for t in values.get("tempo", []) if _is_number(t)]
+        fuels = [float(f) for f in values.get("fuel", []) if _is_number(f)]
+
+        days.append(
+            {
+                "day": day,
+                "tempo": round(sum(tempos) / len(tempos), 1) if tempos else 0,
+                "fuel": round(sum(fuels) / len(fuels), 1) if fuels else 0,
+            }
+        )
+    return days
+
+
 @app.route("/statistics/tempo")
 def tempo_statistics():
-    return render_template("tempo_stats.html")
+    days = _day_tempo_fuel()
+    latest = days[-1] if days else None
+    avg_tempo = round(sum(d["tempo"] for d in days) / len(days), 1) if days else 0
+    avg_fuel = round(sum(d["fuel"] for d in days) / len(days), 1) if days else 0
+    return render_template(
+        "tempo_stats.html",
+        days=days,
+        latest=latest,
+        avg_tempo=avg_tempo,
+        avg_fuel=avg_fuel,
+    )
 
 
 if __name__ == "__main__":

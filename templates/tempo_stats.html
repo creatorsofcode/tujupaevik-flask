@@ -2,9 +2,81 @@
 {% block title %}Tempode statistika{% endblock %}
 {% block content %}
 <h1>Tempode statistika</h1>
-<p class="empty">See vaade on veel arendamisel.</p>
+
+{% if days %}
+<p class="subtitle">Tempo näitab, kui kiiresti sõidad; energia näitab, kui palju jõudu sul on. Skaala 0-100.</p>
+
+<div class="stats-grid">
+  <div class="stat-card tempo">
+    <span class="stat-label">Tempo täna</span>
+    <span class="stat-value">{{ latest.tempo }}</span>
+    <span class="stat-sub">keskmine {{ avg_tempo }}</span>
+  </div>
+  <div class="stat-card fuel">
+    <span class="stat-label">Energia täna</span>
+    <span class="stat-value">{{ latest.fuel }}</span>
+    <span class="stat-sub">keskmine {{ avg_fuel }}</span>
+  </div>
+</div>
+
+<div class="chart-wrap">
+  <canvas id="tempoChart" height="220"></canvas>
+</div>
+{% else %}
+<p class="empty">Andmeid pole veel sisestatud.</p>
+{% endif %}
+
 <div class="btn-group">
   <a class="btn" href="{{ url_for('landing') }}">Avalehele</a>
   <a class="btn" href="{{ url_for('results') }}">Tagasi</a>
 </div>
+
+{% if days %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+  const days = {{ days | tojson }};
+  new Chart(document.getElementById('tempoChart'), {
+    type: 'line',
+    data: {
+      labels: days.map(d => d.day),
+      datasets: [
+        {
+          label: 'Tempo',
+          data: days.map(d => d.tempo),
+          borderColor: '#2FD08B',
+          backgroundColor: 'rgba(47, 208, 139, 0.2)',
+          pointBackgroundColor: '#2FD08B',
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: 'Energia',
+          data: days.map(d => d.fuel),
+          borderColor: '#FF6B6B',
+          backgroundColor: 'rgba(255, 107, 107, 0.2)',
+          pointBackgroundColor: '#FF6B6B',
+          tension: 0.3,
+          fill: true,
+        },
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          min: 0, max: 100, ticks: { color: '#D6E3FC', stepSize: 20 },
+          grid: { color: 'rgba(214, 227, 252, 0.1)' }
+        },
+        x: {
+          ticks: { color: '#D6E3FC' },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { labels: { color: '#D6E3FC' } },
+        tooltip: { mode: 'index', intersect: false }
+      }
+    }
+  });
+</script>
+{% endif %}
 {% endblock %}
