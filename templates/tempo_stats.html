@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Tempode statistika{% endblock %}
+{% block content %}
+<h1>Tempode statistika</h1>
+<p class="empty">See vaade on veel arendamisel.</p>
+<div class="btn-group">
+  <a class="btn" href="{{ url_for('landing') }}">Avalehele</a>
+  <a class="btn" href="{{ url_for('results') }}">Tagasi</a>
+</div>
+{% endblock %}

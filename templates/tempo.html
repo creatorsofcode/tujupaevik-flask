@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Mis tempoga ma sõidan?{% endblock %}
+{% block content %}
+<h1>Mis tempoga ma sõidan?</h1>
+<form method="post" class="slider-form">
+  <output id="tempoOut" for="tempoRange">50</output>
+  <input type="range" id="tempoRange" name="tempo" min="0" max="100" value="50"
+         oninput="tempoOut.value = this.value">
+  <button type="submit" class="btn">Kinnita</button>
+</form>
+{% endblock %}

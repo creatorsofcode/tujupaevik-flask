@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Tujupäevik{% endblock %}
+{% block content %}
+<h1 class="logo">TUJU<span>päevik</span></h1>
+<div class="btn-group">
+  <a class="btn" href="{{ url_for('mood') }}">Alusta</a>
+  <a class="btn btn-secondary" href="{{ url_for('results') }}">Tulemused</a>
+</div>
+{% endblock %}

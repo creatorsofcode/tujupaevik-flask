@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Mis tunne on?{% endblock %}
+{% block content %}
+<h1>Mis tunne on?</h1>
+<form method="post" class="grid grid-2">
+  {% for value, label in moods %}
+  <button type="submit" name="mood" value="{{ value }}" class="btn">{{ label }}</button>
+  {% endfor %}
+</form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Tujude statistika{% endblock %}
+{% block content %}
+<h1>Tujude statistika</h1>
+
+{% if days %}
+<div class="chart-wrap">
+  <canvas id="moodChart" height="220"></canvas>
+</div>
+{% else %}
+<p class="empty">Andmeid pole veel sisestatud.</p>
+{% endif %}
+
+<div class="btn-group">
+  <a class="btn" href="{{ url_for('landing') }}">Avalehele</a>
+  <a class="btn" href="{{ url_for('results') }}">Tagasi</a>
+</div>
+
+{% if days %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+  const days = {{ days | tojson }};
+  const labels = {{ labels | tojson }};
+  new Chart(document.getElementById('moodChart'), {
+    type: 'bar',
+    data: {
+      labels: days.map(d => d.day),
+      datasets: [{ label: 'Tuju', data: days.map(d => d.mood), backgroundColor: '#4C8DFF' }]
+    },
+    options: {
+      scales: {
+        y: {
+          min: 0, max: 8, ticks: { stepSize: 1, color: '#D6E3FC', callback: (v) => labels[v] || '' }
+        },
+        x: { ticks: { color: '#D6E3FC' } }
+      },
+      plugins: { legend: { labels: { color: '#D6E3FC' } } }
+    }
+  });
+</script>
+{% endif %}
+{% endblock %}

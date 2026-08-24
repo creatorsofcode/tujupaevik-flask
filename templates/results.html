@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Kuidas mul läinud on?{% endblock %}
+{% block content %}
+<h1>Kuidas mul läinud on?</h1>
+
+{% if days %}
+<div class="chart-wrap">
+  <canvas id="resultsChart" height="220"></canvas>
+</div>
+{% else %}
+<p class="empty">Andmeid pole veel sisestatud.</p>
+{% endif %}
+
+<div class="btn-group">
+  <a class="btn" href="{{ url_for('landing') }}">Avalehele</a>
+  <a class="btn" href="{{ url_for('mood_statistics') }}">Tujud</a>
+  <a class="btn" href="{{ url_for('tempo_statistics') }}">Tempod</a>
+</div>
+
+{% if days %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script>
+  const days = {{ days | tojson }};
+  new Chart(document.getElementById('resultsChart'), {
+    type: 'bar',
+    data: {
+      labels: days.map(d => d.day),
+      datasets: [
+        { label: 'Tuju', data: days.map(d => d.mood), backgroundColor: '#4C8DFF' },
+        { label: 'Tempo', data: days.map(d => d.tempo), backgroundColor: '#2FD08B' },
+        { label: 'Energia', data: days.map(d => d.fuel), backgroundColor: '#FF6B6B' },
+      ]
+    },
+    options: {
+      scales: { y: { beginAtZero: true, max: 8 } },
+      plugins: { legend: { labels: { color: '#D6E3FC' } } }
+    }
+  });
+</script>
+{% endif %}
+{% endblock %}

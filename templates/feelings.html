@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Miks ma nii tunnen?{% endblock %}
+{% block content %}
+<h1>Miks ma nii tunnen?</h1>
+<form method="post" class="grid grid-2">
+  {% for reason in reasons %}
+  <button type="submit" name="reason" value="{{ reason }}" class="btn btn-small">{{ reason }}</button>
+  {% endfor %}
+</form>
+<form method="post" class="custom-form">
+  <input type="text" name="custom_reason" placeholder="Kirjutan ise, miks" autocomplete="off">
+  <button type="submit" class="btn">Kinnita</button>
+</form>
+{% endblock %}
